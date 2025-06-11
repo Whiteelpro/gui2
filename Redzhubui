@@ -1,0 +1,167 @@
+-- Redz GUI Library v1.1.0
+-- Improved version with better organization and performance
+
+local redzlib = {
+    -- Core Services
+    Services = {
+        MarketplaceService = game:GetService("MarketplaceService"),
+        UserInputService = game:GetService("UserInputService"),
+        TweenService = game:GetService("TweenService"),
+        HttpService = game:GetService("HttpService"),
+        RunService = game:GetService("RunService"),
+        CoreGui = game:GetService("CoreGui"),
+        Players = game:GetService("Players"),
+        Player = game.Players.LocalPlayer,
+        PlayerMouse = game.Players.LocalPlayer:GetMouse()
+    },
+
+    -- Configuration
+    Config = {
+        UIScale = workspace.CurrentCamera.ViewportSize.Y / 450,
+        SaveFile = "redz_library_v5.json",
+        DefaultTheme = "Darker"
+    },
+
+    -- Core Components
+    Components = {},
+    Elements = {},
+    Flags = {},
+    Tabs = {},
+    Icons = {},
+    
+    -- Internal Storage
+    Instances = {},
+    Connections = {},
+    Settings = {}
+}
+
+-- Theme System
+redzlib.Themes = {
+    Darker = {
+        Hub1 = ColorSequence.new({
+            ColorSequenceKeypoint.new(0.00, Color3.fromRGB(25, 25, 25)),
+            ColorSequenceKeypoint.new(0.50, Color3.fromRGB(32.5, 32.5, 32.5)),
+            ColorSequenceKeypoint.new(1.00, Color3.fromRGB(25, 25, 25))
+        }),
+        Hub2 = Color3.fromRGB(30, 30, 30),
+        Stroke = Color3.fromRGB(40, 40, 40),
+        Theme = Color3.fromRGB(88, 101, 242),
+        Text = Color3.fromRGB(243, 243, 243),
+        DarkText = Color3.fromRGB(180, 180, 180)
+    },
+    Dark = {
+        Hub1 = ColorSequence.new({
+            ColorSequenceKeypoint.new(0.00, Color3.fromRGB(40, 40, 40)),
+            ColorSequenceKeypoint.new(0.50, Color3.fromRGB(47.5, 47.5, 47.5)),
+            ColorSequenceKeypoint.new(1.00, Color3.fromRGB(40, 40, 40))
+        }),
+        Hub2 = Color3.fromRGB(45, 45, 45),
+        Stroke = Color3.fromRGB(65, 65, 65),
+        Theme = Color3.fromRGB(65, 150, 255),
+        Text = Color3.fromRGB(245, 245, 245),
+        DarkText = Color3.fromRGB(190, 190, 190)
+    },
+    Purple = {
+        Hub1 = ColorSequence.new({
+            ColorSequenceKeypoint.new(0.00, Color3.fromRGB(27.5, 25, 30)),
+            ColorSequenceKeypoint.new(0.50, Color3.fromRGB(32.5, 32.5, 32.5)),
+            ColorSequenceKeypoint.new(1.00, Color3.fromRGB(27.5, 25, 30))
+        }),
+        Hub2 = Color3.fromRGB(30, 30, 30),
+        Stroke = Color3.fromRGB(40, 40, 40),
+        Theme = Color3.fromRGB(150, 0, 255),
+        Text = Color3.fromRGB(240, 240, 240),
+        DarkText = Color3.fromRGB(180, 180, 180)
+    }
+}
+
+-- Utility Functions
+local function CreateInstance(className, props, children)
+    local instance = Instance.new(className)
+    if props then
+        for key, value in pairs(props) do
+            instance[key] = value
+        end
+    end
+    if children then
+        for _, child in ipairs(children) do
+            child.Parent = instance
+        end
+    end
+    return instance
+end
+
+local function ApplyTheme(instance, theme)
+    if not theme then return end
+    if instance:IsA("GuiObject") then
+        instance.BackgroundColor3 = theme.Hub2
+        instance.BorderColor3 = theme.Stroke
+        instance.TextColor3 = theme.Text
+    end
+end
+
+-- Core Functions
+function redzlib:CreateGuiElement(elementType, props, children)
+    local element = CreateInstance(elementType, props, children)
+    table.insert(self.Instances, element)
+    return element
+end
+
+function redzlib:SetTheme(themeName)
+    local theme = self.Themes[themeName]
+    if not theme then return false end
+    
+    -- Apply theme to all instances
+    for _, instance in ipairs(self.Instances) do
+        ApplyTheme(instance, theme)
+    end
+    return true
+end
+
+function redzlib:ConnectEvent(element, eventName, callback)
+    if not element[eventName] then return nil end
+    local connection = element[eventName]:Connect(callback)
+    table.insert(self.Connections, connection)
+    return connection
+end
+
+function redzlib:DisconnectAll()
+    for _, connection in ipairs(self.Connections) do
+        if connection.Disconnect then
+            connection:Disconnect()
+        end
+    end
+    self.Connections = {}
+end
+
+-- Initialization
+function redzlib:Initialize()
+    -- Load saved settings
+    if pcall(function()
+        local file = self.Config.SaveFile
+        if isfile and isfile(file) then
+            local data = HttpService:JSONDecode(readfile(file))
+            if type(data) == "table" then
+                self.Config.UIScale = data.UIScale or self.Config.UIScale
+                self:SetTheme(data.Theme or self.Config.DefaultTheme)
+            end
+        end
+    end) then
+        return true
+    end
+    return false
+end
+
+-- Cleanup
+function redzlib:Destroy()
+    self:DisconnectAll()
+    for _, instance in ipairs(self.Instances) do
+        if instance and instance:IsA("GuiObject") then
+            instance:Destroy()
+        end
+    end
+    self.Instances = {}
+end
+
+-- Export the library
+return redzlib
