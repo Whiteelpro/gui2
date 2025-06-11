@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern GUI</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="gui-container">
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h2>Modern GUI</h2>
+            </div>
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="home">🏠 Home</button>
+                <button class="tab-btn" data-tab="settings">⚙️ Settings</button>
+                <button class="tab-btn" data-tab="tools">🛠️ Tools</button>
+            </div>
+        </div>
+        <div class="main-content">
+            <div class="tab-content active" data-tab="home">
+                <div class="section">
+                    <h3>Welcome</h3>
+                    <div class="controls">
+                        <button class="button primary">Primary Button</button>
+                        <button class="button secondary">Secondary Button</button>
+                    </div>
+                    <div class="input-group">
+                        <input type="text" placeholder="Enter text...">
+                        <button class="button icon"><i class="fas fa-search"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-content" data-tab="settings">
+                <div class="section">
+                    <h3>Settings</h3>
+                    <div class="settings-group">
+                        <div class="setting-item">
+                            <label>Theme</label>
+                            <select class="select">
+                                <option value="dark">Dark</option>
+                                <option value="darker">Darker</option>
+                                <option value="purple">Purple</option>
+                            </select>
+                        </div>
+                        <div class="setting-item">
+                            <label>UI Size</label>
+                            <input type="range" min="500" max="1000" value="550" class="slider">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-content" data-tab="tools">
+                <div class="section">
+                    <h3>Tools</h3>
+                    <div class="tools-grid">
+                        <div class="tool-card">
+                            <i class="fas fa-cog"></i>
+                            <h4>Tool 1</h4>
+                            <p>Description of tool 1</p>
+                        </div>
+                        <div class="tool-card">
+                            <i class="fas fa-wrench"></i>
+                            <h4>Tool 2</h4>
+                            <p>Description of tool 2</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

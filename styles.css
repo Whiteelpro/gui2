@@ -1,0 +1,204 @@
+:root {
+    --primary-color: #5865F2;
+    --secondary-color: #404040;
+    --background-color: #202225;
+    --text-color: #FFFFFF;
+    --border-color: #303235;
+    --hover-color: #36393F;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background-color: #18191C;
+}
+
+.gui-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    width: 240px;
+    background-color: var(--background-color);
+    border-right: 1px solid var(--border-color);
+    padding: 16px;
+}
+
+.sidebar-header {
+    padding: 16px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.sidebar-header h2 {
+    margin: 0;
+    color: var(--text-color);
+}
+
+.tabs {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 16px;
+}
+
+.tab-btn {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    background: none;
+    color: var(--text-color);
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: background-color 0.2s;
+}
+
+.tab-btn:hover {
+    background-color: var(--hover-color);
+}
+
+.tab-btn.active {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+/* Main Content Styles */
+.main-content {
+    flex: 1;
+    padding: 24px;
+    background-color: var(--background-color);
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* Section Styles */
+.section {
+    background-color: var(--secondary-color);
+    border-radius: 8px;
+    padding: 24px;
+    margin-bottom: 24px;
+}
+
+.section h3 {
+    color: var(--text-color);
+    margin: 0 0 20px 0;
+}
+
+/* Controls Styles */
+.controls {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.2s;
+}
+
+.button.primary {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.button.secondary {
+    background-color: var(--hover-color);
+    color: var(--text-color);
+}
+
+.button:hover {
+    opacity: 0.9;
+}
+
+.button.icon {
+    padding: 10px;
+}
+
+/* Input Group Styles */
+.input-group {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+input[type="text"] {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+}
+
+/* Settings Styles */
+.settings-group {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.setting-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.setting-item label {
+    color: var(--text-color);
+}
+
+.select {
+    padding: 8px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+}
+
+.slider {
+    flex: 1;
+    accent-color: var(--primary-color);
+}
+
+/* Tools Grid Styles */
+.tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.tool-card {
+    background-color: var(--secondary-color);
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+}
+
+.tool-card i {
+    font-size: 2em;
+    color: var(--primary-color);
+    margin-bottom: 12px;
+}
+
+.tool-card h4 {
+    color: var(--text-color);
+    margin: 8px 0;
+}
+
+.tool-card p {
+    color: var(--hover-color);
+    margin: 0;
+}
